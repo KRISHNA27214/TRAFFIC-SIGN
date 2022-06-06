@@ -71,15 +71,11 @@ NUM_CATEGORIES
 
 # Label Overview
 
-classes = { 0:'Speed limit (20km/h)',
-
+classes = {
+            0:'Speed limit (20km/h)',
             1:'Speed limit (30km/h)', 
-            
             2:'Speed limit (50km/h)', 
-            
-            3:'Speed limit (60km/h)', 
-            
-  
+            3:'Speed limit (60km/h)',
             4:'Speed limit (70km/h)', 
             5:'Speed limit (80km/h)', 
             6:'End of speed limit (80km/h)', 
