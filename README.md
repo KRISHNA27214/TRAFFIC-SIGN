@@ -72,6 +72,7 @@ NUM_CATEGORIES
 # Label Overview
 
 classes = {
+
             0:'Speed limit (20km/h)',
             1:'Speed limit (30km/h)', 
             2:'Speed limit (50km/h)', 
@@ -121,7 +122,10 @@ classes = {
 folders = os.listdir(train_path)
 
 train_number = []
+
 class_num = []
+
+
 
 for folder in folders:
     train_files = os.listdir(train_path + '/' + folder)
