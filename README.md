@@ -6,6 +6,8 @@ import os
 Root = "/content/drive/MyDrive/Colab_Notebook/TSF/Traffic_sign_classification"
 os.chdir(Root)
 
+
+
 import numpy as np
 
 import pandas as pd
@@ -40,25 +42,44 @@ style.use('fivethirtyeight')
 
 
 #Assigning Path for Dataset
+
 data_dir = "/content/drive/MyDrive/Colab_Notebook/TSF/Traffic_sign_classification"
+
 train_path = 'Train'
+
 test_path = 'Test'
+
+
 
 # Resizing the images to 30x30x3
 IMG_HEIGHT = 30
+
 IMG_WIDTH = 30
+
 channels = 3
 
+
+
 #Finding Total Classes
+
 NUM_CATEGORIES = len(os.listdir(train_path))
+
 NUM_CATEGORIES
 
 
+
+
 # Label Overview
+
 classes = { 0:'Speed limit (20km/h)',
+
             1:'Speed limit (30km/h)', 
+            
             2:'Speed limit (50km/h)', 
+            
             3:'Speed limit (60km/h)', 
+            
+  
             4:'Speed limit (70km/h)', 
             5:'Speed limit (80km/h)', 
             6:'End of speed limit (80km/h)', 
