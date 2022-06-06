@@ -1,5 +1,5 @@
 
-Importing Required Libraries
+#Importing Required Libraries
 import os
 Root = "/content/drive/MyDrive/Colab_Notebook/TSF/Traffic_sign_classification"
 os.chdir(Root)
@@ -39,7 +39,8 @@ channels = 3
 Finding Total Classes
 NUM_CATEGORIES = len(os.listdir(train_path))
 NUM_CATEGORIES
-43
+
+
 # Label Overview
 classes = { 0:'Speed limit (20km/h)',
             1:'Speed limit (30km/h)', 
@@ -84,7 +85,8 @@ classes = { 0:'Speed limit (20km/h)',
             40:'Roundabout mandatory', 
             41:'End of no passing', 
             42:'End no passing veh > 3.5 tons' }
-Visualizing The Dataset
+
+#Visualizing The Dataset
 folders = os.listdir(train_path)
 
 train_number = []
@@ -125,7 +127,7 @@ for i in range(1,26):
     plt.xlabel(rand_img.shape[1], fontsize = 20)#width of image
     plt.ylabel(rand_img.shape[0], fontsize = 20)#height of image
 
-Collecting the Training Data
+#Collecting the Training Data
 image_data = []
 image_labels = []
 
@@ -168,7 +170,9 @@ X_train.shape (27446, 30, 30, 3)
 X_valid.shape (11763, 30, 30, 3)
 y_train.shape (27446,)
 y_valid.shape (11763,)
-One hot encoding the labels
+
+
+#One hot encoding the labels
 y_train = keras.utils.to_categorical(y_train, NUM_CATEGORIES)
 y_val = keras.utils.to_categorical(y_val, NUM_CATEGORIES)
 
@@ -176,7 +180,8 @@ print(y_train.shape)
 print(y_val.shape)
 (27446, 43)
 (11763, 43)
-Making the model
+
+#Making the model
 model = keras.models.Sequential([    
     keras.layers.Conv2D(filters=16, kernel_size=(3,3), activation='relu', input_shape=(IMG_HEIGHT,IMG_WIDTH,channels)),
     keras.layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
@@ -195,11 +200,9 @@ model = keras.models.Sequential([
     
     keras.layers.Dense(43, activation='softmax')
 ])
-WARNING:tensorflow:From /usr/local/lib/python3.7/dist-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
-Instructions for updating:
-Call initializer instance with the dtype argument instead of passing it to the constructor
-lr = 0.001
-epochs = 30
+
+
+
 
 opt = Adam(lr=lr, decay=lr / (epochs * 0.5))
 model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
@@ -216,13 +219,13 @@ aug = ImageDataGenerator(
 
 history = model.fit(aug.flow(X_train, y_train, batch_size=32), epochs=epochs, validation_data=(X_val, y_val))
 
-Evaluating the model
+#Evaluating the model
 pd.DataFrame(history.history).plot(figsize=(8, 5))
 plt.grid(True)
 plt.gca().set_ylim(0, 1)
 plt.show()
 
-Loading the test data and running the predictions
+#Loading the test data and running the predictions
 test = pd.read_csv(data_dir + '/Test.csv')
 
 labels = test["ClassId"].values
@@ -245,21 +248,10 @@ pred = model.predict_classes(X_test)
 
 #Accuracy with the test data
 print('Test Data accuracy: ',accuracy_score(labels, pred)*100)
-/usr/local/lib/python3.7/dist-packages/tensorflow/python/keras/engine/sequential.py:450: UserWarning: `model.predict_classes()` is deprecated and will be removed after 2021-01-01. Please use instead:* `np.argmax(model.predict(x), axis=-1)`,   if your model does multi-class classification   (e.g. if it uses a `softmax` last-layer activation).* `(model.predict(x) > 0.5).astype("int32")`,   if your model does binary classification   (e.g. if it uses a `sigmoid` last-layer activation).
-  warnings.warn('`model.predict_classes()` is deprecated and '
-Test Data accuracy:  98.47980997624704
-Visualizing the confusion matrix
-from sklearn.metrics import confusion_matrix
-cf = confusion_matrix(labels, pred)
-import seaborn as sns
-df_cm = pd.DataFrame(cf, index = classes,  columns = classes)
-plt.figure(figsize = (20,20))
-sns.heatmap(df_cm, annot=True)
-<matplotlib.axes._subplots.AxesSubplot at 0x7fe89039aad0>
 
 
 
-Predictions on Test Data
+#Predictions on Test Data
 plt.figure(figsize = (25, 25))
 
 start_index = 0
